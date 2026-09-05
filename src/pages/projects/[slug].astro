@@ -1,0 +1,120 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const STATUS_LABEL: Record<string, string> = {
+  delivered: 'Delivered',
+  'in-shop': 'In the shop',
+  'waiting-parts': 'Waiting on parts',
+};
+const STATUS_TONE: Record<string, string> = {
+  delivered: 'badge--ok',
+  'in-shop': 'badge--info',
+  'waiting-parts': 'badge--warn',
+};
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, vehicle, date, tags, status, summary, cover } = project.data;
+const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+---
+<BaseLayout title={title} description={summary}>
+  <main>
+    <section class="section section--tight">
+      <div class="container project-head">
+        <a href="/projects/" class="back-link">&larr; All projects</a>
+        <div class="section-head">
+          <span class="eyebrow">{tags.join(' · ')}</span>
+          <h1>{title}</h1>
+          <p class="lead">{summary}</p>
+        </div>
+        <div class="project-meta">
+          <span class={`badge ${STATUS_TONE[status]}`}>{STATUS_LABEL[status]}</span>
+          <span class="mono project-meta__item">{vehicle}</span>
+          <span class="mono project-meta__item">{dateLabel}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" style="padding-top: 0;">
+      <div class="container project-body">
+        <div class="placeholder placeholder--16-9">
+          <span>{cover}</span>
+        </div>
+        <article class="prose">
+          <Content />
+        </article>
+        <div class="project-cta">
+          <p>Want something like this done on your car?</p>
+          <a href="/contact/" class="btn btn--primary">Request a quote</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .project-head { display: flex; flex-direction: column; gap: var(--space-5); }
+  .back-link {
+    font-family: var(--font-display);
+    font-size: var(--label-size);
+    font-weight: 600;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .back-link:hover { color: var(--text-primary); }
+  .project-meta { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; }
+  .project-meta__item { color: var(--text-secondary); }
+
+  .project-body { display: flex; flex-direction: column; gap: var(--space-8); max-width: var(--container-md); }
+
+  .prose {
+    font-family: var(--font-text);
+    font-size: var(--text-md);
+    line-height: var(--text-md-lh);
+    color: var(--text-primary);
+  }
+  .prose :global(h2) {
+    margin: var(--space-8) 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--display-5);
+    line-height: var(--display-5-lh);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+  }
+  .prose :global(p) { margin: 0 0 var(--space-4); color: var(--text-secondary); }
+  .prose :global(ul) { margin: 0 0 var(--space-4); padding-left: 1.2em; color: var(--text-secondary); }
+  .prose :global(li) { margin-bottom: var(--space-2); }
+  .prose :global(table) { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--mono-size); }
+  .prose :global(td) { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+  .prose :global(td:first-child) { color: var(--text-muted); width: 160px; }
+  .prose :global(thead) { display: none; }
+
+  .project-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+    padding: var(--space-6);
+    background: var(--surface-inset);
+    border-radius: var(--radius-sm);
+  }
+  .project-cta p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--display-5);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+</style>

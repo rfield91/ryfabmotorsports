@@ -1,0 +1,13 @@
+---
+interface Props {
+  light?: boolean;
+  size?: number;
+}
+const { light = false, size = 24 } = Astro.props;
+---
+<span class={`logotype ${light ? 'logotype--light' : ''}`} style={`--logo-size:${size}px`}>
+  <span class="logotype__rule" aria-hidden="true"></span>
+  <span class="logotype__word" style={`font-size:${size}px`}>
+    RyFab<span class="logotype__sub" style={`font-size:${size * 0.54}px`}>Motorsports</span>
+  </span>
+</span>

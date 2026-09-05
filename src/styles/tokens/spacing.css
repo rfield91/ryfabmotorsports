@@ -1,0 +1,18 @@
+:root{
+/* 4px base ramp */
+--space-0:0;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
+--space-20:80px;--space-24:96px;--space-32:128px;
+
+/* Section rhythm */
+--section-y:96px;--section-y-tight:64px;--gutter:24px;
+
+/* Container widths */
+--container-sm:640px;--container-md:880px;--container-lg:1120px;--container-xl:1360px;
+
+/* Radii — machined, not soft */
+--radius-none:0;--radius-xs:2px;--radius-sm:4px;--radius-md:6px;--radius-lg:10px;--radius-pill:999px;
+
+/* Border widths */
+--border-hair:1px;--border-thick:2px;--border-rule:3px;
+}

@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects', ({ data }) => !data.draft);
+const recent = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
+
+const SERVICES = [
+  { name: 'Custom fabrication', copy: 'Exhaust, piping, roll bars, brackets, mounts, chassis repair. If it is metal and it goes on the car, it gets made here.' },
+  { name: 'Custom wiring', copy: 'Fault-finding, harness modification, sensor and ECU installs, complete bespoke chassis harnesses.' },
+  { name: 'Repair & rebuild', copy: 'Engine, driveline, suspension, brakes. Diagnosis through reassembly, including cars other shops sent away.' },
+  { name: 'Setup', copy: 'Performance parts installed, then corner balanced and aligned to the numbers your event needs.' },
+];
+---
+<BaseLayout title="Home">
+  <main>
+    <section class="hero ryfab-inverse">
+      <div class="container hero__row">
+        <div class="hero__copy">
+          <h1 class="hero__title">Fabrication<br />Wiring<br />Repair<br /><span class="hero__accent">Setup</span></h1>
+          <p class="hero__lead">
+            A one-man shop for street builds, autocross, trackday and road-race cars. One person on
+            the car from the estimate to the hand-back.
+          </p>
+          <div class="hero__actions">
+            <a href="/contact/" class="btn btn--primary btn--lg">Request a quote</a>
+            <a href="/projects/" class="btn btn--outline btn--lg btn--on-dark">See our projects</a>
+          </div>
+        </div>
+        <div class="placeholder placeholder--4-3 hero__photo">
+          <span>Hero photo — car on the lift</span>
+        </div>
+      </div>
+      <div class="rule-accent"></div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Services</span>
+          <h2>What we do</h2>
+        </div>
+        <div class="grid grid--4" style="margin-top: var(--space-10);">
+          {SERVICES.map((s) => (
+            <div class="card">
+              <div class="card__body">
+                <h3 class="card__title">{s.name}</h3>
+                <p class="card__text">{s.copy}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--inset">
+      <div class="container">
+        <div class="grid grid--2" style="align-items:center; gap: var(--space-12);">
+          <div class="placeholder placeholder--16-9">
+            <span>Shop floor — welding</span>
+          </div>
+          <div class="shop-story">
+            <div class="section-head">
+              <span class="eyebrow">The shop</span>
+              <h2>One person, start to finish</h2>
+              <p class="lead">
+                RyFab is one man who races his own car and takes in work for other people who do the
+                same. Work is measured, fitted on the car and documented so it can be serviced later.
+                Most of it comes in by word of mouth.
+              </p>
+            </div>
+            <div class="shop-story__grid">
+              {['Street builds', 'Autocross', 'Trackday', 'Road race'].map((l) => (
+                <div class="shop-story__item">
+                  <span class="shop-story__mark" aria-hidden="true"></span>
+                  <span>{l}</span>
+                </div>
+              ))}
+            </div>
+            <a href="/contact/" class="btn btn--outline">Talk about your car</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="recent-head">
+          <div class="section-head">
+            <span class="eyebrow">Recent work</span>
+            <h2>Recent projects</h2>
+          </div>
+          <a href="/projects/" class="btn btn--ghost">All projects</a>
+        </div>
+        <div class="grid grid--4" style="margin-top: var(--space-8);">
+          {recent.map((p) => (
+            <a href={`/projects/${p.id}/`} class="card card--interactive project-card">
+              <div class="placeholder placeholder--4-3 card__media">
+                <span>{p.data.cover}</span>
+              </div>
+              <div class="card__body">
+                <span class="card__eyebrow">{p.data.tags.join(' · ')}</span>
+                <h3 class="card__title">{p.data.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section--accent cta-band">
+      <div class="container cta-band__row">
+        <div>
+          <h2 class="cta-band__title">Tell us what you need</h2>
+          <p class="cta-band__lead">Most quote requests get an answer within one business day.</p>
+        </div>
+        <a href="/contact/" class="btn btn--solid btn--lg">Get in touch</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; background: var(--gray-950); color: var(--gray-0); }
+  .hero__row {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+    padding: var(--space-24) var(--gutter);
+  }
+  .hero__copy { display: flex; flex-direction: column; gap: var(--space-6); align-items: flex-start; }
+  .hero__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--display-1);
+    line-height: var(--display-1-lh);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-display);
+  }
+  .hero__accent { color: var(--accent); }
+  .hero__lead {
+    margin: 0;
+    max-width: 480px;
+    font-family: var(--font-text);
+    font-size: var(--text-xl);
+    line-height: var(--text-xl-lh);
+    color: var(--gray-400);
+  }
+  .hero__actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  .hero__photo { background: var(--gray-900); border-color: var(--gray-800); }
+
+  .shop-story { display: flex; flex-direction: column; gap: var(--space-5); align-items: flex-start; }
+  .shop-story__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 20px;
+    width: 100%;
+  }
+  .shop-story__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 10px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .shop-story__mark { width: 12px; height: 3px; background: var(--accent); flex: 0 0 auto; }
+
+  .recent-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; }
+  .project-card { color: inherit; }
+  .project-card:hover { color: inherit; }
+
+  .cta-band { padding: 56px 0; }
+  .cta-band__row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); flex-wrap: wrap; }
+  .cta-band__title {
+    font-family: var(--font-display);
+    font-size: var(--display-3);
+    line-height: 1;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gray-950);
+  }
+  .cta-band__lead {
+    margin-top: 10px;
+    font-family: var(--font-text);
+    font-size: var(--text-lg);
+    color: var(--gray-800);
+  }
+
+  @media (max-width: 860px) {
+    .hero__row { grid-template-columns: 1fr; }
+    .hero__title { font-size: var(--display-2); }
+  }
+</style>

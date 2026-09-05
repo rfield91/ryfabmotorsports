@@ -1,0 +1,73 @@
+:root{
+/* Brand — School Bus Yellow */
+--yellow-50:#FFFCEB;--yellow-100:#FFF4C2;--yellow-200:#FFEA8A;--yellow-300:#FFE24D;
+--yellow-400:#FFDC1F;--yellow-500:#FFD800;--yellow-600:#E0BE00;--yellow-700:#B09400;
+--yellow-800:#7A6700;--yellow-900:#463B00;
+
+/* Neutral — zinc ramp */
+--gray-0:#FFFFFF;--gray-50:#FAFAFA;--gray-100:#F4F4F5;--gray-200:#E4E4E7;--gray-300:#D4D4D8;
+--gray-400:#A1A1AA;--gray-500:#71717A;--gray-600:#52525B;--gray-700:#3F3F46;--gray-800:#27272A;
+--gray-900:#18181B;--gray-950:#0B0B0D;
+
+/* Semantic status */
+--green-500:#1F8A4C;--green-100:#E4F3EA;
+--amber-500:#C77700;--amber-100:#FBEFDD;
+--red-500:#C62828;--red-100:#FAE7E7;
+--blue-500:#2563A8;--blue-100:#E4EDF7;
+
+/* Aliases — text */
+--text-primary:var(--gray-900);
+--text-secondary:var(--gray-600);
+--text-muted:var(--gray-500);
+--text-inverse:var(--gray-0);
+--text-on-accent:var(--gray-900);
+--text-link:var(--gray-900);
+--text-link-hover:var(--yellow-700);
+
+/* Aliases — surface */
+--surface-page:var(--gray-0);
+--surface-card:var(--gray-0);
+--surface-inset:var(--gray-100);
+--surface-raised:var(--gray-50);
+--surface-inverse:var(--gray-950);
+--surface-inverse-inset:var(--gray-900);
+--surface-accent:var(--yellow-500);
+--surface-accent-tint:var(--yellow-50);
+
+/* Aliases — line */
+--border-subtle:var(--gray-200);
+--border-default:var(--gray-300);
+--border-strong:var(--gray-900);
+--border-inverse:var(--gray-800);
+--border-accent:var(--yellow-500);
+
+/* Aliases — interaction */
+--accent:var(--yellow-500);
+--accent-hover:var(--yellow-400);
+--accent-press:var(--yellow-600);
+--accent-quiet:var(--yellow-100);
+--focus-ring:var(--gray-900);
+--focus-ring-inverse:var(--yellow-500);
+
+/* Aliases — status */
+--status-ok-fg:var(--green-500);--status-ok-bg:var(--green-100);
+--status-warn-fg:var(--amber-500);--status-warn-bg:var(--amber-100);
+--status-danger-fg:var(--red-500);--status-danger-bg:var(--red-100);
+--status-info-fg:var(--blue-500);--status-info-bg:var(--blue-100);
+}
+[data-theme="dark"],.ryfab-inverse{
+--text-primary:var(--gray-0);
+--text-secondary:var(--gray-400);
+--text-muted:var(--gray-500);
+--text-inverse:var(--gray-900);
+--text-link:var(--yellow-500);
+--text-link-hover:var(--yellow-300);
+--surface-page:var(--gray-950);
+--surface-card:var(--gray-900);
+--surface-inset:var(--gray-800);
+--surface-raised:var(--gray-800);
+--border-subtle:var(--gray-800);
+--border-default:var(--gray-700);
+--border-strong:var(--gray-0);
+--focus-ring:var(--yellow-500);
+}

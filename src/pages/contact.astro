@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const EMAIL = 'ryan@ryfabmotorsports.com';
+---
+<BaseLayout title="Contact" description="Get in touch with RyFab Motorsports — tell us about your car and what you need.">
+  <main>
+    <section class="section section--tight">
+      <div class="container contact-grid">
+        <div class="contact-form-col">
+          <div class="section-head">
+            <span class="eyebrow">Contact</span>
+            <h1>How can we help?</h1>
+            <p class="lead">Tell us about your car and what you're trying to get done. We'll reply as soon as we can.</p>
+          </div>
+
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            action="/contact/success/"
+            class="contact-form"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="hp-field"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+
+            <div class="field">
+              <label for="c-name">Name<span class="required">*</span></label>
+              <input class="input" id="c-name" name="name" placeholder="First and last" required />
+            </div>
+
+            <div class="field">
+              <label for="c-email">Email<span class="required">*</span></label>
+              <input class="input" id="c-email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="field">
+              <label for="c-notes">What do you need help with?</label>
+              <textarea class="input" id="c-notes" name="notes" rows="5" placeholder="Tell us about your car and what you need"></textarea>
+            </div>
+
+            <div class="contact-submit">
+              <button type="submit" class="btn btn--primary btn--lg">Submit</button>
+              <span class="contact-submit__note">We reply as soon as we can.</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="contact-side">
+          <div class="card">
+            <div class="card__body">
+              <span class="card__eyebrow">Prefer email?</span>
+              <h2 class="card__title">Reach us directly</h2>
+              <a href={`mailto:${EMAIL}`} class="mono contact-email">{EMAIL}</a>
+            </div>
+          </div>
+
+          <div class="placeholder placeholder--16-10">
+            <span>Shop photo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+  .contact-form-col { display: flex; flex-direction: column; gap: var(--space-6); }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .hp-field { position: absolute; left: -9999px; }
+
+  .contact-submit { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+  .contact-submit__note { font-family: var(--font-text); font-size: var(--text-sm); color: var(--text-muted); }
+
+  .contact-side { display: flex; flex-direction: column; gap: var(--space-4); }
+  .contact-email {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-size: var(--mono-size);
+    color: var(--text-primary);
+  }
+  .contact-email:hover { color: var(--text-link-hover); }
+
+  @media (max-width: 860px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>

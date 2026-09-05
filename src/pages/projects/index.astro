@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const STATUS_LABEL: Record<string, string> = {
+  delivered: 'Delivered',
+  'in-shop': 'In the shop',
+  'waiting-parts': 'Waiting on parts',
+};
+const STATUS_TONE: Record<string, string> = {
+  delivered: 'badge--ok',
+  'in-shop': 'badge--info',
+  'waiting-parts': 'badge--warn',
+};
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+<BaseLayout title="Projects" description="Cars that have come through RyFab Motorsports — a partial log, added as jobs finish.">
+  <main>
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Projects</span>
+          <h1>Cars that came through</h1>
+          <p class="lead">A partial log. Entries are added as jobs finish.</p>
+        </div>
+
+        {projects.length === 0 ? (
+          <p class="empty-note">No projects posted yet. Check back soon.</p>
+        ) : (
+          <div class="grid grid--3" style="margin-top: var(--space-8);">
+            {projects.map((p) => (
+              <a href={`/projects/${p.id}/`} class="card card--interactive project-card">
+                <div class="placeholder placeholder--4-3 card__media">
+                  <span>{p.data.cover}</span>
+                </div>
+                <div class="card__body">
+                  <span class="card__eyebrow">{p.data.tags.join(' · ')}</span>
+                  <h2 class="card__title">{p.data.title}</h2>
+                  <p class="card__meta">{p.data.vehicle}</p>
+                </div>
+                <div class="card__footer">
+                  <span class={`badge ${STATUS_TONE[p.data.status]}`}>{STATUS_LABEL[p.data.status]}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .project-card { color: inherit; }
+  .project-card:hover { color: inherit; }
+  .empty-note {
+    margin-top: var(--space-8);
+    font-family: var(--font-text);
+    color: var(--text-muted);
+  }
+</style>

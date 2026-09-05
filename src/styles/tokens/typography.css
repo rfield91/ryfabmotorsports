@@ -1,0 +1,34 @@
+:root{
+/* Families */
+--font-display:"Barlow Condensed",Impact,"Arial Narrow",sans-serif;
+--font-text:"Barlow","Helvetica Neue",Arial,sans-serif;
+--font-mono:"Space Mono",ui-monospace,Menlo,monospace;
+
+/* Weights */
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+
+/* Display scale — condensed, uppercase, tight */
+--display-1:88px;--display-1-lh:0.92;
+--display-2:64px;--display-2-lh:0.94;
+--display-3:44px;--display-3-lh:1;
+--display-4:32px;--display-4-lh:1.05;
+--display-5:24px;--display-5-lh:1.1;
+
+/* Text scale */
+--text-xl:20px;--text-xl-lh:1.5;
+--text-lg:18px;--text-lg-lh:1.55;
+--text-md:16px;--text-md-lh:1.6;
+--text-sm:14px;--text-sm-lh:1.55;
+--text-xs:12px;--text-xs-lh:1.45;
+
+/* Utility type — labels, part numbers, spec rows */
+--label-size:12px;--label-lh:1.2;--label-tracking:0.14em;
+--mono-size:13px;--mono-lh:1.5;--mono-tracking:0.02em;
+
+/* Tracking */
+--tracking-display:-0.01em;
+--tracking-tight:-0.005em;
+--tracking-normal:0;
+--tracking-wide:0.06em;
+--tracking-caps:0.14em;
+}

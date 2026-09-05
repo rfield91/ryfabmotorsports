@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Request sent" description="Your quote request was sent to RyFab Motorsports.">
+  <main>
+    <section class="section success-section">
+      <div class="container success">
+        <span class="badge badge--ok">Request sent</span>
+        <h1>We've got it</h1>
+        <p class="lead">
+          Thanks for the details. We reply to most quote requests within one business day.
+        </p>
+        <a href="/" class="btn btn--outline">Back to home</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .success-section { padding: var(--space-32) 0; }
+  .success {
+    max-width: var(--container-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  .success h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--display-3);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-display);
+  }
+</style>
