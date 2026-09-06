@@ -5,7 +5,7 @@ date: 2025-11-03
 tags: [Road race, Wiring]
 status: in-shop
 summary: Full bespoke chassis harness for a stripped road-race build — fuse and relay panel, dash switches, kill switch, and a wiring diagram handed over with the car.
-cover: "GT86 chassis harness laid out on the bench"
+coverAlt: "GT86 chassis harness laid out on the bench"
 ---
 
 The car was stripped to a shell for a road-race build with a standalone ECU. The factory harness

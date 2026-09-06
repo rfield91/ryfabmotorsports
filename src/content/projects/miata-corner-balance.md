@@ -5,7 +5,7 @@ date: 2026-01-22
 tags: [Autocross, Setup]
 status: delivered
 summary: Coilover install, corner balance with driver in the seat, and an alignment set to an autocross sheet.
-cover: "NB Miata on the corner-balance scales"
+coverAlt: "NB Miata on the corner-balance scales"
 ---
 
 Regular autocross car. The owner supplied the coilovers; the job was installation, balance and

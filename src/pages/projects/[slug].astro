@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const STATUS_LABEL: Record<string, string> = {
@@ -23,7 +24,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, vehicle, date, tags, status, summary, cover } = project.data;
+const { title, vehicle, date, tags, status, summary, cover, coverAlt, gallery } = project.data;
 const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 ---
 <BaseLayout title={title} description={summary}>
@@ -46,12 +47,23 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
 
     <section class="section section--tight" style="padding-top: 0;">
       <div class="container project-body">
-        <div class="placeholder placeholder--16-9">
-          <span>{cover}</span>
-        </div>
+        {cover ? (
+          <Image src={cover} alt={coverAlt} class="project-cover" widths={[400, 700, 1120]} sizes="(max-width: 880px) 100vw, 880px" />
+        ) : (
+          <div class="placeholder placeholder--16-9">
+            <span>{coverAlt}</span>
+          </div>
+        )}
         <article class="prose">
           <Content />
         </article>
+        {gallery.length > 0 && (
+          <div class="gallery">
+            {gallery.map((g) => (
+              <Image src={g.image} alt={g.alt} class="gallery__photo" widths={[300, 500]} sizes="(max-width: 640px) 50vw, 33vw" />
+            ))}
+          </div>
+        )}
         <div class="project-cta">
           <p>Want something like this done on your car?</p>
           <a href="/contact/" class="btn btn--primary">Request a quote</a>
@@ -76,6 +88,28 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
   .project-meta__item { color: var(--text-secondary); }
 
   .project-body { display: flex; flex-direction: column; gap: var(--space-8); max-width: var(--container-md); }
+  .project-cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--border-subtle);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  .gallery__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 640px) {
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+  }
 
   .prose {
     font-family: var(--font-text);

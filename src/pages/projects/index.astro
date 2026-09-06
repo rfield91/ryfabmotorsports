@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 
 const STATUS_LABEL: Record<string, string> = {
   delivered: 'Delivered',
@@ -33,9 +34,13 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
           <div class="grid grid--3" style="margin-top: var(--space-8);">
             {projects.map((p) => (
               <a href={`/projects/${p.id}/`} class="card card--interactive project-card">
-                <div class="placeholder placeholder--4-3 card__media">
-                  <span>{p.data.cover}</span>
-                </div>
+                {p.data.cover ? (
+                  <Image src={p.data.cover} alt={p.data.coverAlt} class="card__photo" widths={[300, 500]} sizes="(max-width: 860px) 100vw, 33vw" />
+                ) : (
+                  <div class="placeholder placeholder--4-3 card__media">
+                    <span>{p.data.coverAlt}</span>
+                  </div>
+                )}
                 <div class="card__body">
                   <span class="card__eyebrow">{p.data.tags.join(' · ')}</span>
                   <h2 class="card__title">{p.data.title}</h2>
@@ -56,6 +61,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 <style>
   .project-card { color: inherit; }
   .project-card:hover { color: inherit; }
+  .card__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
   .empty-note {
     margin-top: var(--space-8);
     font-family: var(--font-text);

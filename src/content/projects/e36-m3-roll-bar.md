@@ -5,7 +5,7 @@ date: 2026-02-14
 tags: [Road race, Fabrication]
 status: delivered
 summary: Bolt-in six-point roll bar built to fit the car's factory seat position, plus mounts for a pair of fixed-back seats and harness bar.
-cover: "E36 M3 in the shop — roll bar mock-up"
+coverAlt: "E36 M3 in the shop — roll bar mock-up"
 ---
 
 The car came in stripped for a club road-race season. The owner wanted a six-point bar that

@@ -6,10 +6,11 @@ design system (School Bus Yellow, Barlow Condensed/Barlow/Space Mono, zinc neutr
 
 ## Adding a project
 
-Every project is one markdown file. Drop a new file into `src/content/projects/`, fill in the
-frontmatter, and commit — the build turns it into its own page at `/projects/<filename>/` and adds
-it to the `/projects/` grid and the homepage's "Recent projects" strip automatically. No other file
-needs to change.
+Every project is one markdown file. The build turns it into its own page at `/projects/<slug>/`
+and adds it to the `/projects/` grid and the homepage's "Recent projects" strip automatically. No
+other file needs to change — just add the project and commit.
+
+**No photos yet?** Drop a single file straight into `src/content/projects/`:
 
 ```md
 ---
@@ -19,20 +20,55 @@ date: 2026-03-01
 tags: [Street, Fabrication]
 status: delivered # delivered | in-shop | waiting-parts
 summary: One or two sentences, shown on the card and in the page's meta description.
-cover: "Photo caption shown on the placeholder image slot"
+coverAlt: Caption shown on the grey placeholder box, e.g. "Camaro — engine bay before teardown"
 ---
 
 Body copy in markdown. Use `## headings`, bullet lists, and a `| |` table for a spec block —
 see the sample projects in `src/content/projects/` for the pattern this site's styling expects.
 ```
 
+That renders a labelled grey placeholder wherever a photo would go.
+
+**Have photos?** Give the project its own folder instead, with the write-up as `index.md` and the
+photos alongside it:
+
+```
+src/content/projects/
+  1969-camaro-driveline-rebuild/
+    index.md
+    cover.jpg
+    bay-before.jpg
+    bay-after.jpg
+```
+
+```md
+---
+title: 1969 Camaro — driveline rebuild
+vehicle: 1969 Chevrolet Camaro, LS3
+date: 2026-03-01
+tags: [Street, Repair]
+status: delivered
+summary: Full driveline rebuild after a track day let go.
+cover: ./cover.jpg
+coverAlt: 1969 Camaro on the lift with the driveline pulled
+gallery:
+  - image: ./bay-before.jpg
+    alt: Engine bay before teardown
+  - image: ./bay-after.jpg
+    alt: Engine bay after the rebuild
+---
+
+Body copy...
+```
+
+`cover` is the photo shown at the top of the project page and on its card in `/projects/` and the
+homepage strip. `gallery` is an optional list of additional photos shown further down the project
+page. Both are optimized automatically at build time (resized, converted to modern formats) —
+just use whatever a phone camera produces; no manual resizing or compression needed. The project's
+folder name becomes its URL slug, exactly like the filename does for a photo-less project.
+
 Set `draft: true` in the frontmatter to keep a project out of the build while it's still being
 written.
-
-**No photography exists yet.** Every project (and the homepage) shows a labelled grey placeholder
-instead of a real photo. To swap one in, drop the image in `public/images/` and replace the
-`<div class="placeholder">…</div>` block for that project with a plain `<img>` tag — the
-`cover` frontmatter field is only used as the placeholder's caption today.
 
 ## Development
 
@@ -65,7 +101,8 @@ This is a V1/MVP build. Before it goes in front of a customer:
 
 - **No logo** — the header/footer use a type-only wordmark (`src/components/Logotype.astro`).
   Replace it when real artwork exists.
-- **No photography** — see "Adding a project" above. Every image slot is a labelled grey box.
+- **No photography yet** — see "Adding a project" above for how to attach real photos once they
+  exist. Until then, every image slot is a labelled grey box.
 - **No phone number, address, or hours are advertised anywhere** — the shop is appointment-only
   with no fixed hours, by design. The only published contact points are the form on `/contact/`,
   email (`ryan@ryfabmotorsports.com`), and Instagram (`@ryfabmotorsports`), set in
