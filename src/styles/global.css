@@ -10,6 +10,9 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: var(--surface-page);
   color: var(--text-primary);
   font-family: var(--font-text);
@@ -17,6 +20,7 @@ body {
   line-height: var(--text-md-lh);
   -webkit-font-smoothing: antialiased;
 }
+body > main { flex: 1 0 auto; }
 img, svg { max-width: 100%; display: block; }
 a { color: var(--text-link); text-decoration: none; }
 a:hover { color: var(--text-link-hover); }

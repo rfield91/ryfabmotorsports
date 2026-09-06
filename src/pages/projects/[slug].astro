@@ -54,7 +54,7 @@ const galleryFull = await Promise.all(gallery.map((g) => getImage({ src: g.image
       <div class="container project-body">
         {cover && coverFull ? (
           <a href={coverFull.src} target="_blank" rel="noopener noreferrer" aria-label={`View full-size photo: ${coverAlt}`}>
-            <Image src={cover} alt={coverAlt} class="project-cover" widths={[400, 700, 1120]} sizes="(max-width: 880px) 100vw, 880px" />
+            <Image src={cover} alt={coverAlt} class="project-cover" widths={[400, 700, 1120]} sizes="(max-width: 1120px) 100vw, 1120px" />
           </a>
         ) : (
           <div class="placeholder placeholder--16-9">
@@ -96,7 +96,7 @@ const galleryFull = await Promise.all(gallery.map((g) => getImage({ src: g.image
   .project-meta { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; }
   .project-meta__item { color: var(--text-secondary); }
 
-  .project-body { display: flex; flex-direction: column; gap: var(--space-8); max-width: var(--container-md); }
+  .project-body { display: flex; flex-direction: column; gap: var(--space-8); }
   .project-cover {
     display: block;
     width: 100%;
