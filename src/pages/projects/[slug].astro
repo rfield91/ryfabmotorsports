@@ -1,7 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const FULL_WIDTH = 1600;
 
 const STATUS_LABEL: Record<string, string> = {
   delivered: 'Delivered',
@@ -26,6 +28,9 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const { title, vehicle, date, tags, status, summary, cover, coverAlt, gallery } = project.data;
 const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+const coverFull = cover ? await getImage({ src: cover, width: FULL_WIDTH }) : null;
+const galleryFull = await Promise.all(gallery.map((g) => getImage({ src: g.image, width: FULL_WIDTH })));
 ---
 <BaseLayout title={title} description={summary}>
   <main>
@@ -47,8 +52,10 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
 
     <section class="section section--tight" style="padding-top: 0;">
       <div class="container project-body">
-        {cover ? (
-          <Image src={cover} alt={coverAlt} class="project-cover" widths={[400, 700, 1120]} sizes="(max-width: 880px) 100vw, 880px" />
+        {cover && coverFull ? (
+          <a href={coverFull.src} target="_blank" rel="noopener noreferrer" aria-label={`View full-size photo: ${coverAlt}`}>
+            <Image src={cover} alt={coverAlt} class="project-cover" widths={[400, 700, 1120]} sizes="(max-width: 880px) 100vw, 880px" />
+          </a>
         ) : (
           <div class="placeholder placeholder--16-9">
             <span>{coverAlt}</span>
@@ -59,14 +66,16 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
         </article>
         {gallery.length > 0 && (
           <div class="gallery">
-            {gallery.map((g) => (
-              <Image src={g.image} alt={g.alt} class="gallery__photo" widths={[300, 500]} sizes="(max-width: 640px) 50vw, 33vw" />
+            {gallery.map((g, i) => (
+              <a href={galleryFull[i].src} target="_blank" rel="noopener noreferrer" aria-label={`View full-size photo: ${g.alt}`}>
+                <Image src={g.image} alt={g.alt} class="gallery__photo" widths={[300, 500]} sizes="(max-width: 640px) 50vw, 33vw" />
+              </a>
             ))}
           </div>
         )}
         <div class="project-cta">
           <p>Want something like this done on your car?</p>
-          <a href="/contact/" class="btn btn--primary">Request a quote</a>
+          <a href="/contact/" class="btn btn--primary">Get in touch</a>
         </div>
       </div>
     </section>
@@ -89,7 +98,9 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
 
   .project-body { display: flex; flex-direction: column; gap: var(--space-8); max-width: var(--container-md); }
   .project-cover {
+    display: block;
     width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border: 1px solid var(--border-subtle);
@@ -99,8 +110,11 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-3);
   }
+  .gallery a { cursor: zoom-in; }
   .gallery__photo {
+    display: block;
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border: 1px solid var(--border-subtle);

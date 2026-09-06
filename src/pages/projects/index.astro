@@ -25,7 +25,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
         <div class="section-head">
           <span class="eyebrow">Projects</span>
           <h1>Cars that came through</h1>
-          <p class="lead">A partial log. Entries are added as jobs finish.</p>
+          <p class="lead">A collection of some of the projects we've worked on.</p>
         </div>
 
         {projects.length === 0 ? (
@@ -46,9 +46,6 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
                   <h2 class="card__title">{p.data.title}</h2>
                   <p class="card__meta">{p.data.vehicle}</p>
                 </div>
-                <div class="card__footer">
-                  <span class={`badge ${STATUS_TONE[p.data.status]}`}>{STATUS_LABEL[p.data.status]}</span>
-                </div>
               </a>
             ))}
           </div>
@@ -61,7 +58,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 <style>
   .project-card { color: inherit; }
   .project-card:hover { color: inherit; }
-  .card__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .card__photo { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
   .empty-note {
     margin-top: var(--space-8);
     font-family: var(--font-text);
