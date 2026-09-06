@@ -72,11 +72,13 @@ written.
 
 ## Development
 
+Uses [Bun](https://bun.sh) instead of npm.
+
 ```bash
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # outputs static site to ./dist/
-npm run preview  # serve the production build locally
+bun install
+bun run dev      # http://localhost:4321
+bun run build    # outputs static site to ./dist/
+bun run preview  # serve the production build locally
 ```
 
 ## Contact form
