@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const EMAIL = 'ryan@ryfabmotorsports.com';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaqrepr';
 ---
 <BaseLayout title="Contact" description="Get in touch with RyFab Motorsports — tell us about your car and what you need.">
   <main>
@@ -14,16 +15,9 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
             <p class="lead">Tell us about your car and what you're trying to get done. We'll reply as soon as we can.</p>
           </div>
 
-          <form
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            action="/contact/success/"
-            class="contact-form"
-          >
-            <input type="hidden" name="form-name" value="contact" />
-            <p class="hp-field"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+          <form id="contact-form" method="POST" action={FORMSPREE_ENDPOINT} class="contact-form">
+            <input type="hidden" name="_subject" value="New message from ryfabmotorsports.com" />
+            <p class="hp-field"><label>Don't fill this out if you're human: <input name="_gotcha" /></label></p>
 
             <div class="field">
               <label for="c-name">Name<span class="required">*</span></label>
@@ -39,6 +33,10 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
               <label for="c-notes">What do you need help with?</label>
               <textarea class="input" id="c-notes" name="notes" rows="5" placeholder="Tell us about your car and what you need"></textarea>
             </div>
+
+            <p class="contact-form__error" hidden>
+              Something went wrong sending that. Try again, or email us directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+            </p>
 
             <div class="contact-submit">
               <button type="submit" class="btn btn--primary btn--lg">Submit</button>
@@ -63,6 +61,39 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
       </div>
     </section>
   </main>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const errorEl = form?.querySelector('.contact-form__error');
+    const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorEl?.setAttribute('hidden', '');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+      }
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          window.location.href = '/contact/success/';
+          return;
+        }
+      } catch {
+        // fall through to error state below
+      }
+      errorEl?.removeAttribute('hidden');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -79,6 +110,16 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
     gap: var(--space-5);
   }
   .hp-field { position: absolute; left: -9999px; }
+  .contact-form__error {
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    background: var(--status-danger-bg);
+    color: var(--status-danger-fg);
+    font-family: var(--font-text);
+    font-size: var(--text-sm);
+    border-radius: var(--radius-sm);
+  }
+  .contact-form__error a { color: inherit; text-decoration: underline; }
 
   .contact-submit { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
   .contact-submit__note { font-family: var(--font-text); font-size: var(--text-sm); color: var(--text-muted); }

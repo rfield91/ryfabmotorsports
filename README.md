@@ -83,19 +83,25 @@ bun run preview  # serve the production build locally
 
 ## Contact form
 
-The form on `/contact/` is wired for **Netlify Forms** (`data-netlify="true"`, a hidden
-`form-name` field, and a `bot-field` honeypot) — this needs zero backend code, but only works
-when the site is deployed on Netlify. On submit it redirects to `/contact/success/`.
+The form on `/contact/` submits to **[Formspree](https://formspree.io)** — no backend code, works
+on any static host (Vercel, Netlify, GitHub Pages, etc.). Setup:
 
-If you deploy anywhere else (Vercel, GitHub Pages, Cloudflare Pages, your own server), the form
-will not submit anywhere until you either:
+1. Create a free account at [formspree.io](https://formspree.io) and create a form.
+2. Copy its endpoint (looks like `https://formspree.io/f/xxxxxxxx`).
+3. Paste it into `FORMSPREE_ENDPOINT` at the top of `src/pages/contact.astro`, replacing the
+   `REPLACE_ME` placeholder.
 
-- swap it for a third-party form service (e.g. [Formspree](https://formspree.io) — change the
-  form's `action` to your Formspree endpoint and drop the `data-netlify`/`netlify-honeypot`
-  attributes), or
-- add a real backend endpoint and point `action` at it.
+A small inline script progressively enhances the form: it submits via `fetch` and redirects to
+the branded `/contact/success/` page on success, or shows an inline error (with a `mailto:`
+fallback) if the request fails. With JavaScript disabled, the form still submits as a plain POST
+and lands on Formspree's own confirmation page instead.
 
-The form markup and fields live in `src/pages/contact.astro`.
+Spam protection is a hidden `_gotcha` honeypot field (Formspree's convention — bots that fill
+every field get silently rejected). Submissions also set `_subject` for the notification email's
+subject line. The form markup and fields live in `src/pages/contact.astro`.
+
+Formspree's free tier covers 50 submissions/month, which should be well above what a contact
+form like this sees.
 
 ## What's still a placeholder
 
