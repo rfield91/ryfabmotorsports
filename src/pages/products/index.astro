@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const products = (await getCollection('products', ({ data }) => !data.draft)).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name)
+);
+---
+<BaseLayout title="Products" description="Parts and pieces made by RyFab Motorsports, available to order.">
+  <main>
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Products</span>
+          <h1>What we make</h1>
+          <p class="lead">A short list of what's available right now.</p>
+        </div>
+
+        {products.length === 0 ? (
+          <p class="empty-note">No products posted yet. Check back soon.</p>
+        ) : (
+          <div class="grid grid--3" style="margin-top: var(--space-8);">
+            {products.map((p) => (
+              <a href={`/products/${p.id}/`} class="card card--interactive product-card">
+                {p.data.cover ? (
+                  <Image src={p.data.cover} alt={p.data.coverAlt} class="card__photo" widths={[300, 500]} sizes="(max-width: 860px) 100vw, 33vw" />
+                ) : (
+                  <div class="placeholder placeholder--4-3 card__media">
+                    <span>{p.data.coverAlt}</span>
+                  </div>
+                )}
+                <div class="card__body">
+                  <h2 class="card__title">{p.data.name}</h2>
+                  <p class="card__meta">{p.data.variants[0].price}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .product-card { color: inherit; }
+  .product-card:hover { color: inherit; }
+  .card__photo { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .empty-note {
+    margin-top: var(--space-8);
+    font-family: var(--font-text);
+    color: var(--text-muted);
+  }
+</style>

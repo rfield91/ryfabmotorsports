@@ -70,6 +70,62 @@ folder name becomes its URL slug, exactly like the filename does for a photo-les
 Set `draft: true` in the frontmatter to keep a project out of the build while it's still being
 written.
 
+## Adding a product
+
+Same pattern as projects, in `src/content/products/` — a flat `slug.md` file for a product with
+no photos yet, or a `slug/index.md` folder with photos alongside it. Turns into a page at
+`/products/<slug>/` and a card on `/products/`.
+
+Every product is a `variants` list — even a plain product with nothing to configure is just a list
+with one entry. Each variant is its own [Stripe Payment Link](https://dashboard.stripe.com/payment-links)
+(create one per variant in the Stripe dashboard, no code) with its own label and price:
+
+```md
+---
+name: Product name
+summary: One or two sentences shown on the card and in the page's meta description.
+variants:
+  - label: Standard
+    price: "$45.00"
+    stripeLink: https://buy.stripe.com/xxxxxxxxxxxx
+cover: ./cover.jpg
+coverAlt: What the cover photo shows
+gallery:
+  - image: ./detail.jpg
+    alt: What this photo shows
+---
+
+Body copy in markdown — what it is, what it's made of, sizing, whatever's relevant.
+```
+
+The `/products/` card shows the first variant's price. Set `draft: true` to keep a product out of
+the build while it's still being written.
+
+**Multiple configurations of the same product** (e.g. with/without an add-on, or a choice of
+bracket type) — just add more entries to `variants`, each with its own label, price, and Stripe
+Payment Link:
+
+```md
+---
+name: Wing uprights
+summary: One or two sentences.
+variants:
+  - label: Wing uprights only
+    price: "$100.00"
+    stripeLink: https://buy.stripe.com/xxxxxxxxxxxx
+  - label: Wing uprights + E423 mounting brackets
+    price: "$140.00"
+    stripeLink: https://buy.stripe.com/yyyyyyyyyyyy
+  - label: Wing uprights + MSHD mounting brackets
+    price: "$150.00"
+    stripeLink: https://buy.stripe.com/zzzzzzzzzzzz
+---
+```
+
+With one variant, the product page just shows that variant's label, price, and a "Buy now" button.
+With more than one, it shows a select instead — picking an option updates the "Buy now" link to
+that variant's Payment Link.
+
 ## Development
 
 Uses [Bun](https://bun.sh) instead of npm.
@@ -124,15 +180,13 @@ This is a V1/MVP build. Before it goes in front of a customer:
   with no fixed hours, by design. The only published contact points are the form on `/contact/`,
   email (`ryan@ryfabmotorsports.com`), and Instagram (`@ryfabmotorsports`), set in
   `src/components/Footer.astro` and `src/pages/contact.astro`.
-- **Sample projects are fictional** — the three files in `src/content/projects/` are examples of
-  the format, not real jobs. Replace or delete them.
-
 ## Structure
 
 ```
 src/
 ├── content/
-│   ├── projects/         one markdown file per project
+│   ├── projects/          one markdown file (or folder) per project
+│   ├── products/          one markdown file (or folder) per product
 │   └── config lives in src/content.config.ts
 ├── components/            Header, Footer, Logotype
 ├── layouts/BaseLayout.astro
@@ -140,9 +194,12 @@ src/
 │   ├── index.astro        landing page
 │   ├── contact.astro      quote request form
 │   ├── contact/success.astro
-│   └── projects/
-│       ├── index.astro    project grid
-│       └── [slug].astro   one page per project, generated from the content collection
+│   ├── projects/
+│   │   ├── index.astro    project grid
+│   │   └── [slug].astro   one page per project, generated from the content collection
+│   └── products/
+│       ├── index.astro    product grid
+│       └── [slug].astro   one page per product, generated from the content collection
 └── styles/
     ├── tokens/             design tokens (colors, type, spacing, elevation, motion)
     └── global.css          base styles + reusable classes (buttons, cards, forms, etc.)

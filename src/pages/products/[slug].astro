@@ -1,0 +1,169 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const FULL_WIDTH = 1600;
+
+export async function getStaticPaths() {
+  const products = await getCollection('products', ({ data }) => !data.draft);
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const { Content } = await render(product);
+const { name, summary, variants, cover, coverAlt, gallery } = product.data;
+
+const coverFull = cover ? await getImage({ src: cover, width: FULL_WIDTH }) : null;
+const galleryFull = await Promise.all(gallery.map((g) => getImage({ src: g.image, width: FULL_WIDTH })));
+
+const hasMultipleVariants = variants.length > 1;
+---
+<BaseLayout title={name} description={summary}>
+  <main>
+    <section class="section section--tight">
+      <div class="container product-head">
+        <a href="/products/" class="back-link">&larr; All products</a>
+        <div class="section-head">
+          <h1>{name}</h1>
+          <p class="lead">{summary}</p>
+        </div>
+        <div class="product-buy">
+          {hasMultipleVariants ? (
+            <span class="select-wrap">
+              <select id="variant-select" class="input" aria-label="Configuration" data-variants={JSON.stringify(variants)}>
+                {variants.map((v, i) => (
+                  <option value={i}>{v.label} — {v.price}</option>
+                ))}
+              </select>
+            </span>
+          ) : (
+            <span class="product-buy__single">
+              <span class="product-buy__label">{variants[0].label}</span>
+              <span class="mono product-buy__price">{variants[0].price}</span>
+            </span>
+          )}
+          <a href={variants[0].stripeLink} class="btn btn--primary" id="buy-link">Buy now</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" style="padding-top: 0;">
+      <div class="container product-body">
+        {cover && coverFull ? (
+          <a href={coverFull.src} target="_blank" rel="noopener noreferrer" aria-label={`View full-size photo: ${coverAlt}`}>
+            <Image src={cover} alt={coverAlt} class="product-cover" widths={[400, 700, 1120]} sizes="(max-width: 1120px) 100vw, 1120px" />
+          </a>
+        ) : (
+          <div class="placeholder placeholder--16-9">
+            <span>{coverAlt}</span>
+          </div>
+        )}
+        <article class="prose">
+          <Content />
+        </article>
+        {gallery.length > 0 && (
+          <div class="gallery">
+            {gallery.map((g, i) => (
+              <a href={galleryFull[i].src} target="_blank" rel="noopener noreferrer" aria-label={`View full-size photo: ${g.alt}`}>
+                <Image src={g.image} alt={g.alt} class="gallery__photo" widths={[300, 500]} sizes="(max-width: 640px) 50vw, 33vw" />
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    {hasMultipleVariants && (
+      <script>
+        const select = document.getElementById('variant-select') as HTMLSelectElement | null;
+        const buyLink = document.getElementById('buy-link') as HTMLAnchorElement | null;
+        if (select && buyLink) {
+          const variants = JSON.parse(select.dataset.variants || '[]') as {
+            label: string;
+            price: string;
+            stripeLink: string;
+          }[];
+          select.addEventListener('change', () => {
+            const v = variants[Number(select.value)];
+            if (v) buyLink.href = v.stripeLink;
+          });
+        }
+      </script>
+    )}
+  </main>
+</BaseLayout>
+
+<style>
+  .product-head { display: flex; flex-direction: column; gap: var(--space-5); }
+  .back-link {
+    font-family: var(--font-display);
+    font-size: var(--label-size);
+    font-weight: 600;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .back-link:hover { color: var(--text-primary); }
+
+  .product-buy { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+  .product-buy .select-wrap { min-width: 280px; }
+  .product-buy__single { display: flex; align-items: center; gap: var(--space-3); }
+  .product-buy__label { font-family: var(--font-text); font-size: var(--text-md); color: var(--text-primary); }
+  .product-buy__price { font-size: var(--text-lg); color: var(--text-primary); }
+
+  .product-body { display: flex; flex-direction: column; gap: var(--space-8); }
+  .product-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--border-subtle);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  .gallery a { cursor: zoom-in; }
+  .gallery__photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 640px) {
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .prose {
+    font-family: var(--font-text);
+    font-size: var(--text-md);
+    line-height: var(--text-md-lh);
+    color: var(--text-primary);
+  }
+  .prose :global(h2) {
+    margin: var(--space-8) 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--display-5);
+    line-height: var(--display-5-lh);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+  }
+  .prose :global(p) { margin: 0 0 var(--space-4); color: var(--text-secondary); }
+  .prose :global(ul) { margin: 0 0 var(--space-4); padding-left: 1.2em; color: var(--text-secondary); }
+  .prose :global(li) { margin-bottom: var(--space-2); }
+  .prose :global(table) { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--mono-size); }
+  .prose :global(td) { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+  .prose :global(td:first-child) { color: var(--text-muted); width: 160px; }
+  .prose :global(thead) { display: none; }
+</style>
