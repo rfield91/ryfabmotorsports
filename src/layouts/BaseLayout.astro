@@ -6,12 +6,16 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = 'RyFab Motorsports — custom fabrication, wiring, repair and setup for street, autocross and road-race cars.',
+  noindex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -19,12 +23,18 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonicalURL} />
     <title>{title} · RyFab Motorsports</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
   </head>
   <body>
     <Header />
     <slot />
     <Footer />
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </body>
 </html>
