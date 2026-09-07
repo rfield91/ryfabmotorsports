@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const EMAIL = 'ryan@ryfabmotorsports.com';
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaqrepr';
+// Set FORMSPREE_ENDPOINT in .env (local) or the host's environment variables
+// (per-environment in production). Falls back to the testing form so the
+// site still builds and works without any env var configured.
+// See README.md "Contact form".
+const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/xeaqrepr';
 ---
 <BaseLayout title="Contact" description="Get in touch with RyFab Motorsports — tell us about your car and what you need.">
   <main>

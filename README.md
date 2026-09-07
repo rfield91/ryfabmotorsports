@@ -84,12 +84,21 @@ bun run preview  # serve the production build locally
 ## Contact form
 
 The form on `/contact/` submits to **[Formspree](https://formspree.io)** — no backend code, works
-on any static host (Vercel, Netlify, GitHub Pages, etc.). Setup:
+on any static host (Vercel, Netlify, GitHub Pages, etc.).
 
-1. Create a free account at [formspree.io](https://formspree.io) and create a form.
-2. Copy its endpoint (looks like `https://formspree.io/f/xxxxxxxx`).
-3. Paste it into `FORMSPREE_ENDPOINT` at the top of `src/pages/contact.astro`, replacing the
-   `REPLACE_ME` placeholder.
+The endpoint comes from the `FORMSPREE_ENDPOINT` environment variable (read in
+`src/pages/contact.astro`), with a hardcoded testing form as the fallback if it's unset — so the
+site still builds and the form still works with zero config. This isn't hiding a secret (the
+endpoint is visible in the page's HTML either way); it's so different environments can point at
+different Formspree forms — e.g. a real business inbox in production, a throwaway form for
+preview/local builds so test submissions don't land in the real inbox.
+
+- **Local dev**: copy `.env.example` to `.env` and set `FORMSPREE_ENDPOINT` there. `.env` is
+  gitignored — never commit it.
+- **Vercel**: set `FORMSPREE_ENDPOINT` under Project Settings → Environment Variables, scoped to
+  the Production environment (with the real business form) and/or Preview (with the testing form).
+  Since this is a static build, the value is baked in at build time — changing it requires a
+  redeploy.
 
 A small inline script progressively enhances the form: it submits via `fetch` and redirects to
 the branded `/contact/success/` page on success, or shows an inline error (with a `mailto:`
