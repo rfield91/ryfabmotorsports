@@ -133,6 +133,10 @@ const SERVICES = [
     border: 1px solid var(--border-subtle);
   }
 
+  /* Two plain .section blocks in a row (Services, Projects) would otherwise
+     each add --section-y padding, doubling the gap between them. */
+  .section + .section { padding-top: 0; }
+
   .recent-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; }
   .project-card { color: inherit; }
   .project-card:hover { color: inherit; }
@@ -147,12 +151,6 @@ const SERVICES = [
     font-weight: 700;
     text-transform: uppercase;
     color: var(--gray-950);
-  }
-  .cta-band__lead {
-    margin-top: 10px;
-    font-family: var(--font-text);
-    font-size: var(--text-lg);
-    color: var(--gray-800);
   }
 
   @media (max-width: 860px) {

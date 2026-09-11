@@ -15,15 +15,17 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <a href="/" class="site-header__brand" aria-label="RyFab Motorsports — home">
       <Logotype size={22} />
     </a>
-    <nav class="site-header__nav" aria-label="Primary">
-      {NAV.map((item) => (
-        <a href={item.href} class="site-header__link" aria-current={isActive(item.href) ? 'page' : undefined}>
-          {item.label}
-        </a>
-      ))}
-    </nav>
-    <div class="site-header__actions">
-      <a href="/contact/" class="btn btn--primary btn--sm">Contact</a>
+    <div class="site-header__bottom">
+      <nav class="site-header__nav" aria-label="Primary">
+        {NAV.map((item) => (
+          <a href={item.href} class="site-header__link" aria-current={isActive(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <div class="site-header__actions">
+        <a href="/contact/" class="btn btn--primary btn--sm">Contact</a>
+      </div>
     </div>
   </div>
 </header>
@@ -43,6 +45,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     height: 72px;
   }
   .site-header__brand { display: inline-flex; }
+  .site-header__bottom { display: contents; }
   .site-header__nav {
     display: flex;
     gap: 26px;
@@ -70,7 +73,18 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   }
 
   @media (max-width: 720px) {
-    .site-header__row { flex-wrap: wrap; height: auto; padding-top: var(--space-3); padding-bottom: var(--space-3); gap: var(--space-3); }
-    .site-header__nav { margin-left: 0; order: 3; width: 100%; gap: var(--space-5); }
+    .site-header__row {
+      flex-wrap: wrap;
+      height: auto;
+      padding: var(--space-3) 0;
+      gap: var(--space-3);
+    }
+    .site-header__bottom {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .site-header__nav { margin-left: 0; gap: var(--space-5); }
+    .site-header__actions { margin-left: auto; }
   }
 </style>
