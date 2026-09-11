@@ -2,9 +2,12 @@
 name: RX8 Trunk Mount Wing Uprights
 summary: Trunk mounted wing uprights for RX8
 variants:
-  - label: Trunk Mount Wing Uprights
+  - label: Uprights Only
     price: "$350.00"
-    stripeLink: https://buy.stripe.com/test_eVqfZh4hA7P58Mz4vBgrS00
+    stripeLink: https://buy.stripe.com/14AdRace97Fldsc15Q8EM08
+  - label: Uprights + MSHD Mounts
+    price: "$410.00"
+    stripeLink: https://buy.stripe.com/eVqcN6ce96Bhag0bKu8EM07
 cover: ./cover.jpg
 coverAlt: RX8 trunk mounted wing uprights
 gallery:

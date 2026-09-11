@@ -2,9 +2,12 @@
 name: NC Chassis Mounted wing uprights
 summary: Chassis mounted wing upright
 variants:
-  - label: Standard
+  - label: Uprights Only
     price: "$230.00"
-    stripeLink: https://ryfabmotorsports.com
+    stripeLink: https://buy.stripe.com/dRm28sba50cT4VG01M8EM01
+  - label: Uprights + MSHD mounts
+    price: "$275.00"
+    stripeLink: https://buy.stripe.com/fZu14oce93p5bk49Cm8EM06
 cover: ./photo-1.jpg
 coverAlt: NC/RX8 quick release splitter mounts
 gallery:

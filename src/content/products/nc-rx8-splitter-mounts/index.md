@@ -2,9 +2,18 @@
 name: NC/RX8 Quick Release Splitter Mounts
 summary: Direct bolt-on quick release splitter mounts for NC/RX8
 variants:
-  - label: Quick Release Splitter Mounts
-    price: "$225.00"
-    stripeLink: https://buy.stripe.com/test_eVqfZh4hA7P58Mz4vBgrS00
+  - label: Quick Release Mounts Only
+    price: "$240.00"
+    stripeLink: https://buy.stripe.com/dRm28s7XTcZFag05m68EM02
+  - label: Mounts + Rear Mounting Tab
+    price: "$260.00"
+    stripeLink: https://buy.stripe.com/aFabJ20vrf7Nco8dSC8EM03
+  - label: Mounts + Cables
+    price: "$290.00"
+    stripeLink: https://buy.stripe.com/eVqbJ26TP5xd5ZK8yi8EM05
+  - label: Mounts + Rear Mounting Tab + Cables
+    price: "$310.00"
+    stripeLink: https://buy.stripe.com/dRmbJ2a616Bh87S15Q8EM04
 cover: ./cover.jpg
 coverAlt: NC/RX8 quick release splitter mounts
 gallery:
