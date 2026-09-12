@@ -28,6 +28,11 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
       </a>
     </div>
   </div>
+  <div class="site-footer__bottom">
+    <div class="container">
+      <a href="/disclaimer/" class="site-footer__legal">Disclaimer</a>
+    </div>
+  </div>
 </footer>
 
 <style>
@@ -61,6 +66,14 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
   }
 
   .site-footer__social:hover { color: var(--accent); }
+
+  .site-footer__bottom { border-top: 1px solid var(--gray-800); padding: var(--space-4) 0; }
+  .site-footer__legal {
+    font-family: var(--font-text);
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+  }
+  .site-footer__legal:hover { color: var(--text-link-hover); }
 
   @media (max-width: 720px) {
     .site-footer__grid { grid-template-columns: 1fr; }

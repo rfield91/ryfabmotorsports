@@ -203,6 +203,30 @@ select.input { appearance: none; background-image: none; padding-right: 34px; cu
 }
 .logotype--light .logotype__sub { color: var(--gray-400); }
 
+/* ---------- Prose (long-form body copy — project/product write-ups, legal pages) ---------- */
+.prose {
+  font-family: var(--font-text);
+  font-size: var(--text-md);
+  line-height: var(--text-md-lh);
+  color: var(--text-primary);
+}
+.prose h2 {
+  margin: var(--space-8) 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--display-5);
+  line-height: var(--display-5-lh);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-tight);
+}
+.prose p { margin: 0 0 var(--space-4); color: var(--text-secondary); }
+.prose ul { margin: 0 0 var(--space-4); padding-left: 1.2em; color: var(--text-secondary); }
+.prose li { margin-bottom: var(--space-2); }
+.prose table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--mono-size); }
+.prose td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+.prose td:first-child { color: var(--text-muted); width: 160px; }
+.prose thead { display: none; }
+
 /* ---------- Rule ---------- */
 .hairline { height: 1px; background: var(--border-subtle); border: 0; }
 .rule-accent { height: 3px; background: var(--accent); border: 0; }

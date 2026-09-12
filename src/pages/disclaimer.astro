@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Disclaimer" description="Assumption of risk and other terms that apply to products sold by RyFab Motorsports.">
+  <main>
+    <section class="section section--tight">
+      <div class="container disclaimer-container">
+        <div class="section-head">
+          <span class="eyebrow">Legal</span>
+          <h1>Disclaimer</h1>
+        </div>
+        <p class="mono disclaimer-updated">Last updated September 2026</p>
+
+        <article class="prose">
+          <h2>Assumption of risk</h2>
+          <p>
+            Products sold by RyFab Motorsports are aftermarket automotive fabrication parts
+            intended for performance, motorsport, and off-road use. Installing and using these
+            parts carries inherent risk, including the risk of part failure, vehicle damage,
+            injury, or death. By purchasing, installing, or using any RyFab Motorsports product,
+            you accept that risk and agree that you are solely responsible for verifying correct
+            fit, installation, and use for your vehicle and application.
+          </p>
+
+          <h2>No warranty</h2>
+          <p>
+            Products are sold as-is, with no warranty of any kind, express or implied, including
+            any warranty of merchantability or fitness for a particular purpose.
+          </p>
+
+          <h2>Installation and fitment</h2>
+          <p>
+            These parts are not installed by RyFab Motorsports. You are responsible for correct
+            installation, including using proper hardware, torque specifications, and ongoing
+            inspection. If you are not confident installing a part correctly, have it installed
+            by a qualified professional before use.
+          </p>
+
+          <h2>Intended use</h2>
+          <p>
+            Parts are designed for motorsport, track, and off-road applications. Some parts may
+            not be legal for use on public roads in your jurisdiction. It is your responsibility
+            to confirm compliance with local laws and the rules of any event or sanctioning body
+            before use.
+          </p>
+
+          <h2>Limitation of liability</h2>
+          <p>
+            To the fullest extent permitted by law, RyFab Motorsports is not liable for any
+            injury, death, or property damage arising from the purchase, installation, or use of
+            its products, including damage arising from defects, improper installation, or use
+            outside the intended application.
+          </p>
+
+          <h2>Questions</h2>
+          <p>
+            If something doesn't fit, doesn't look right, or you're not sure how to install it, <a href="/contact/">contact us</a> before using the part.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .disclaimer-container { max-width: 720px; }
+  .disclaimer-updated { color: var(--text-muted); margin-top: var(--space-2); }
+  .disclaimer-container .prose { margin-top: var(--space-8); }
+</style>
