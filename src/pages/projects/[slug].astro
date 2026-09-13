@@ -32,7 +32,7 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
 const coverFull = cover ? await getImage({ src: cover, width: FULL_WIDTH }) : null;
 const galleryFull = await Promise.all(gallery.map((g) => getImage({ src: g.image, width: FULL_WIDTH })));
 ---
-<BaseLayout title={title} description={summary}>
+<BaseLayout title={title} description={summary} image={coverFull?.src}>
   <main>
     <section class="section section--tight">
       <div class="container project-head">

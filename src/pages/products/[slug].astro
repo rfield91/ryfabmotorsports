@@ -21,8 +21,38 @@ const coverFull = cover ? await getImage({ src: cover, width: FULL_WIDTH }) : nu
 const galleryFull = await Promise.all(gallery.map((g) => getImage({ src: g.image, width: FULL_WIDTH })));
 
 const hasMultipleVariants = variants.length > 1;
+
+const pageURL = new URL(Astro.url.pathname, Astro.site).href;
+const toNumericPrice = (price: string) => price.replace(/[^0-9.]/g, '');
+const prices = variants.map((v) => Number(toNumericPrice(v.price)));
+
+const productJsonLd = {
+  '@context': 'https://schema.org/',
+  '@type': 'Product',
+  name,
+  description: summary,
+  brand: { '@type': 'Brand', name: 'RyFab Motorsports' },
+  ...(coverFull ? { image: [new URL(coverFull.src, Astro.site).href] } : {}),
+  offers: hasMultipleVariants
+    ? {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'USD',
+        lowPrice: Math.min(...prices).toFixed(2),
+        highPrice: Math.max(...prices).toFixed(2),
+        offerCount: variants.length,
+        url: pageURL,
+      }
+    : {
+        '@type': 'Offer',
+        priceCurrency: 'USD',
+        price: prices[0].toFixed(2),
+        availability: 'https://schema.org/InStock',
+        url: pageURL,
+      },
+};
 ---
-<BaseLayout title={name} description={summary}>
+<BaseLayout title={name} description={summary} image={coverFull?.src}>
+  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
   <main>
     <section class="section section--tight">
       <div class="container product-head">

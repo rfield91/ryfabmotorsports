@@ -1,6 +1,6 @@
 ---
 name: NC/RX8 Quick Release Splitter Mounts
-summary: Direct bolt-on quick release splitter mounts for NC/RX8
+summary: Quick release front splitter mounts for the Mazda MX-5 (NC) and RX8 — bolt directly to existing chassis holes, no drilling required.
 variants:
   - label: Quick Release Mounts Only
     price: "$240.00"
@@ -15,14 +15,14 @@ variants:
     price: "$310.00"
     stripeLink: https://buy.stripe.com/dRmbJ2a616Bh87S15Q8EM04
 cover: ./cover.jpg
-coverAlt: NC/RX8 quick release splitter mounts
+coverAlt: Pair of NC/RX8 quick release splitter mount brackets
 gallery:
   - image: ./photo-1.jpg
-    alt: NC/RX8 splitter mounts
+    alt: Splitter mount installed under the front chassis rail
   - image: ./photo-2.jpg
-    alt: NC/RX8 splitter mounts
+    alt: Close-up of quick release splitter mount bracket installed
   - image: ./photo-3.jpg
-    alt: NC/RX8 splitter mounts
+    alt: Front splitter installed with quick release cables attached
 ---
 
 These splitter mounts bolt directly to existing holes on both the NC and RX8 chassis - no drilling required to install.

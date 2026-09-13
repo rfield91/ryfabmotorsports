@@ -1,21 +1,30 @@
 ---
+import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import heroPhoto from '../content/photos/hero.jpg';
 
 interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  // Relative path (e.g. an optimized image's .src) or absolute URL to use
+  // for social share previews. Falls back to the homepage hero photo.
+  image?: string;
 }
 
 const {
   title,
   description = 'RyFab Motorsports — custom fabrication, wiring, repair and setup for street, autocross and road-race cars.',
   noindex = false,
+  image,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const defaultOgImage = await getImage({ src: heroPhoto, width: 1200 });
+const ogImageURL = new URL(image ?? defaultOgImage.src, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -27,6 +36,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title} · RyFab Motorsports</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RyFab Motorsports" />
+    <meta property="og:title" content={`${title} · RyFab Motorsports`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} · RyFab Motorsports`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
   </head>
   <body>
     <Header />
