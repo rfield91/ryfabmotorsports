@@ -10,7 +10,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "new-project": "bun scripts/new-project.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -19,5 +20,9 @@
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "fflate": "^0.8.3",
+    "sharp": "^0.35.5"
   }
 }

@@ -10,6 +10,27 @@ Every project is one markdown file. The build turns it into its own page at `/pr
 and adds it to the `/projects/` grid and the homepage's "Recent projects" strip automatically. No
 other file needs to change — just add the project and commit.
 
+**Fastest way: the `new-project` script.** Download your photos as a zip (e.g. a Google Photos
+album's "Download all"), then run:
+
+```bash
+bun run new-project ~/Downloads/album.zip
+```
+
+It also accepts a folder of photos instead of a zip. It prompts for the title, vehicle, date, tags,
+status, and a one-line summary (or pass them as `--title`, `--vehicle`, `--date`, `--tags`,
+`--status`, `--summary`), then creates `src/content/projects/<slug>/` with:
+
+- every `.jpg`/`.png`/`.webp` from the zip, auto-rotated, resized to at most 2400px wide, and
+  renamed `photo-01.jpg`, `photo-02.jpg`, ... (sorted by original filename; the first is the cover)
+- an `index.md` with the frontmatter filled in and a starter write-up
+
+The new project starts as `draft: true` with `TODO` alt text and body copy, so it will not appear on
+the site until you fill those in and remove the `draft` line. Reorder or delete gallery entries in
+`index.md` as needed.
+
+The sections below describe the file format the script generates, if you'd rather write it by hand.
+
 **No photos yet?** Drop a single file straight into `src/content/projects/`:
 
 ```md
