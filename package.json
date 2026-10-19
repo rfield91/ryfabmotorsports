@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "new-project": "bun scripts/new-project.ts"
+    "new-project": "bun scripts/new-project.ts",
+    "new-product": "bun scripts/new-product.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

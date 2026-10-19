@@ -97,6 +97,29 @@ Same pattern as projects, in `src/content/products/` — a flat `slug.md` file f
 no photos yet, or a `slug/index.md` folder with photos alongside it. Turns into a page at
 `/products/<slug>/` and a card on `/products/`.
 
+**Fastest way: the `new-product` script.** Same idea as `new-project` (see "Adding a project"):
+
+```bash
+bun run new-product ~/Downloads/album.zip
+```
+
+It prompts for the product name, a one-line summary, and each variant's label, price, and Stripe
+Payment Link (leave a link blank to fill it in later), then creates `src/content/products/<slug>/`
+with the resized photos and a draft `index.md`. To skip the prompts, pass `--name`, `--summary`,
+and one `--variant "Label|price|stripe-link"` per variant — use single quotes so your shell does
+not expand the `$` in a price:
+
+```bash
+bun run new-product album.zip --name 'RX8 Hood Vents' --summary 'Aluminum hood vents.' \
+  --variant 'Hood Vents|180|https://buy.stripe.com/...'
+```
+
+Like projects, a new product starts as `draft: true` with `TODO` placeholders (including
+`https://buy.stripe.com/TODO` for any missing link). Fill those in and remove the `draft` line to
+publish.
+
+The format the script generates, if you'd rather write it by hand:
+
 Every product is a `variants` list — even a plain product with nothing to configure is just a list
 with one entry. Each variant is its own [Stripe Payment Link](https://dashboard.stripe.com/payment-links)
 (create one per variant in the Stripe dashboard, no code) with its own label and price:
@@ -204,6 +227,7 @@ This is a V1/MVP build. Before it goes in front of a customer:
 ## Structure
 
 ```
+scripts/                   new-project / new-product generators
 src/
 ├── content/
 │   ├── projects/          one markdown file (or folder) per project
