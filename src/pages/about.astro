@@ -1,62 +1,98 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import racingPhoto from '../content/photos/about-racing.webp';
 ---
 <BaseLayout title="About" description="RyFab Motorsports is a one-person fabrication shop run by Ryan Field — custom fabrication, wiring, and setup for street, autocross and track cars.">
   <main>
+    <div class="about-banner">
+      <Image
+        src={racingPhoto}
+        alt="Purple Mazda Miata race car, number 591, at speed on a wet track with a motion-blurred background"
+        class="about-banner__photo"
+        widths={[800, 1200, 1600, 2000]}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="rule-accent"></div>
+    </div>
+
     <section class="section section--tight">
-      <div class="container about-grid">
-        <div class="about-copy">
-          <div class="section-head">
-            <h1>About</h1>
-            <p class="lead">I'm Ryan, and RyFab Motorsports is just me.</p>
-          </div>
-
-          <article class="prose">
-            <p>
-              I grew up on planes, trains, and automobiles. Saturday mornings meant Speed Channel,
-              not cartoons. I've lived and breathed racing ever since, and I still do.
-            </p>
-            <p>
-              Today I compete in a handful of motorsports myself and build and work on other
-              people's race cars. It's the childhood dream, and I take it seriously. I know what
-              it's like to have a car down on the weekend of an event, and I build everything
-              like it's going on my own car.
-            </p>
-            <h2>How I work</h2>
-            <p>
-              I do the work myself, from the first conversation to the last bolt. Whether it's a
-              custom exhaust, a wiring harness, or setting up the suspension, you're talking to the
-              person who's actually doing it.
-            </p>
-            <p>
-              Rates are fair and there are no surprises. If something changes along the way, I'll
-              tell you before I do it. The shop is appointment-only, so <a href="/contact/">get in touch</a>
-              first and tell me about your car.
-            </p>
-          </article>
-
-          <a href="/contact/" class="btn btn--primary btn--lg">Contact me</a>
+      <div class="container about-copy">
+        <div class="section-head">
+          <h1>About</h1>
+          <p class="lead">I'm Ryan, and RyFab Motorsports is just me.</p>
         </div>
 
-        <div class="placeholder placeholder--4-3 about-photo">
-          <span>Photo of me / the shop</span>
-        </div>
+        <article class="prose">
+          <p>
+            I grew up on planes, trains, and automobiles. Saturday mornings meant Speed Channel,
+            not cartoons. I've lived and breathed racing ever since, and I still do.
+          </p>
+          <p>
+            Today I compete in autocross and endurance racing myself and build and work on other
+            people's race cars. It's the childhood dream, and I take it seriously. I know what
+            it's like to have a car down on the weekend of an event, and I build everything
+            like it's going on my own car.
+          </p>
+          <h2>How I work</h2>
+          <p>
+            I do the work myself, from the first conversation to the last bolt. Whether it's a
+            custom exhaust, a wiring harness, or setting up the suspension, you're talking to the
+            person who's actually doing it.
+          </p>
+          <p>
+            Rates are fair and there are no surprises. If something changes along the way, I'll
+            tell you before I do it. The shop is appointment-only, so <a href="/contact/">get in touch</a> first and tell me about your car.
+          </p>
+          <h2>Racing</h2>
+          <p>A few highlights:</p>
+          <ul>
+            <li>
+              ChampCar Endurance Series
+              <ul>
+                <li>Overall winner, 2026 Thompson 12 Hour</li>
+                <li>Overall winner, 2026 Tricky Triangle (Sunday)</li>
+                <li>2nd place, 2026 Eastern Region Championship</li>
+                <li>Numerous class wins and podiums</li>
+              </ul>
+            </li>
+            <li>
+              SCCA Solo Nationals
+              <ul>
+                <li>3rd place, Super Street Modified, 2019</li>
+                <li>Winner, E-Prepared, 2018</li>
+                <li>Winner, Rookie of the Year, 2018</li>
+              </ul>
+            </li>
+            <li>Fastest production car lap ever at Canaan Motor Club</li>
+          </ul>
+        </article>
+
+        <a href="/contact/" class="btn btn--primary btn--lg">Contact me</a>
       </div>
     </section>
   </main>
 </BaseLayout>
 
 <style>
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-12);
-    align-items: start;
+  .about-banner { position: relative; background: var(--gray-950); }
+  .about-banner__photo {
+    display: block;
+    width: 100%;
+    height: clamp(240px, 40vh, 440px);
+    object-fit: cover;
+    object-position: 52% 72%;
   }
-  .about-copy { display: flex; flex-direction: column; gap: var(--space-6); align-items: flex-start; }
-  .about-copy .prose a { color: var(--text-primary); text-decoration: underline; }
+  .about-banner .rule-accent { position: absolute; left: 0; right: 0; bottom: 0; }
 
-  @media (max-width: 860px) {
-    .about-grid { grid-template-columns: 1fr; }
+  .about-copy {
+    max-width: calc(720px + 2 * var(--gutter));
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    align-items: flex-start;
   }
+  .about-copy .prose a { color: var(--text-primary); text-decoration: underline; }
 </style>

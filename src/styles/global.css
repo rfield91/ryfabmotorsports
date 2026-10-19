@@ -222,6 +222,7 @@ select.input { appearance: none; background-image: none; padding-right: 34px; cu
 .prose p { margin: 0 0 var(--space-4); color: var(--text-secondary); }
 .prose ul { margin: 0 0 var(--space-4); padding-left: 1.2em; color: var(--text-secondary); }
 .prose li { margin-bottom: var(--space-2); }
+.prose li > ul { margin: var(--space-2) 0 var(--space-3); }
 .prose table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--mono-size); }
 .prose td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
 .prose td:first-child { color: var(--text-muted); width: 160px; }
