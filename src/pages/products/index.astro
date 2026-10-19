@@ -12,9 +12,8 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
     <section class="section section--tight">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Products</span>
-          <h1>What we make</h1>
-          <p class="lead">A short list of what's available right now.</p>
+          <h1>Products</h1>
+          <p class="lead">Parts I design and build, available to order.</p>
         </div>
 
         {products.length === 0 ? (

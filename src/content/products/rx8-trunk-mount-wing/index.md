@@ -27,7 +27,7 @@ gallery:
 
 Tab and slot design, welded on both sides so it won't fatigue and fail like others on the market.
 
-You can choose to buy the uprights only, or with rivet-on mounts for various wing elements available. If you don't see your wing element listed, please contact us and we can get you sorted.
+You can choose to buy the uprights only, or with rivet-on mounts for various wing elements available. If you don't see your wing element listed, please contact me and I'll get you sorted.
 
 ## What's included
 

@@ -8,32 +8,30 @@ const allProjects = await getCollection('projects', ({ data }) => !data.draft);
 const recent = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
 
 const SERVICES = [
-  { name: 'Custom fabrication', copy: 'From custom exhaust, to roll bars, or pretty much anything you can think of.' },
-  { name: 'Custom wiring', copy: 'Aftermarket ECU installation, harness modifications, to completely bespoke chassis harnesses.' },
+  { name: 'Fabrication', copy: 'From custom exhaust, to roll bars, or pretty much anything you can think of.' },
+  { name: 'Wiring', copy: 'Aftermarket ECU installation, harness modifications, to completely bespoke chassis harnesses.' },
   { name: 'Setup', copy: 'Performance part installation to corner balancing and alignment.' },
+  { name: 'Weird idea?', copy: "Everything that doesn't fit in a box. Send me the problem and we'll figure it out." },
 ];
 ---
 <BaseLayout title="Home">
   <main>
     <section class="hero ryfab-inverse">
+      <Image
+        src={heroPhoto}
+        alt="RX8 exiting a corner on track"
+        class="hero__photo"
+        widths={[800, 1200, 1600, 2000]}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="hero__scrim"></div>
       <div class="container hero__row">
-        <div class="hero__copy">
-          <h1 class="hero__title">Fabrication<br />Wiring<br />Setup</h1>
-          <p class="hero__lead">
-            Solutions for any automotive project. 
-          </p>
-          <div class="hero__actions">
-            <a href="/contact/" class="btn btn--primary btn--lg">Contact Us</a>
-            <a href="/projects/" class="btn btn--outline btn--lg btn--on-dark">See our projects</a>
-          </div>
+        <h1 class="visually-hidden">RyFab Motorsports</h1>
+        <div class="hero__actions">
+          <a href="/contact/" class="btn btn--primary btn--lg">Contact me</a>
+          <a href="/projects/" class="btn btn--outline btn--lg btn--on-dark">See my projects</a>
         </div>
-        <Image
-          src={heroPhoto}
-          alt="RX8 exiting a corner on track"
-          class="hero__photo"
-          widths={[400, 700, 1120]}
-          sizes="(max-width: 860px) 100vw, 550px"
-        />
       </div>
       <div class="rule-accent"></div>
     </section>
@@ -43,7 +41,7 @@ const SERVICES = [
         <div class="section-head">
           <h2>Services</h2>
         </div>
-        <div class="grid grid--3" style="margin-top: var(--space-10);">
+        <div class="grid grid--4" style="margin-top: var(--space-10);">
           {SERVICES.map((s) => (
             <div class="card">
               <div class="card__body">
@@ -87,7 +85,7 @@ const SERVICES = [
     <section class="section--accent cta-band">
       <div class="container cta-band__row">
         <div>
-          <h2 class="cta-band__title">Tell us what you need</h2>
+          <h2 class="cta-band__title">Ready to start a project?</h2>
         </div>
         <a href="/contact/" class="btn btn--solid btn--lg">Get in touch</a>
       </div>
@@ -96,41 +94,44 @@ const SERVICES = [
 </BaseLayout>
 
 <style>
-  .hero { position: relative; background: var(--gray-950); color: var(--gray-0); }
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(420px, 70vh, 680px);
+    background: var(--gray-950);
+    color: var(--gray-0);
+    overflow: hidden;
+  }
+  .hero__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.65) 0%, rgb(0 0 0 / 0) 55%);
+  }
+  .hero .rule-accent { position: absolute; left: 0; right: 0; bottom: 0; }
+  .hero .btn--outline { border-color: var(--gray-0); background: rgb(0 0 0 / 0.35); }
+  .hero .btn--outline:hover { background: rgb(0 0 0 / 0.6); }
   .hero__row {
-    display: grid;
-    grid-template-columns: 1.05fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding: var(--space-24) var(--gutter);
-  }
-  .hero__copy { display: flex; flex-direction: column; gap: var(--space-6); align-items: flex-start; }
-  .hero__title {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: var(--display-1);
-    line-height: var(--display-1-lh);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-display);
-  }
-  .hero__accent { color: var(--accent); }
-  .hero__lead {
-    margin: 0;
-    max-width: 480px;
-    font-family: var(--font-text);
-    font-size: var(--text-xl);
-    line-height: var(--text-xl-lh);
-    color: var(--gray-400);
+    position: relative;
+    width: 100%;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
   }
   .hero__actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-  .hero__photo {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border: 1px solid var(--border-subtle);
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   /* Two plain .section blocks in a row (Services, Projects) would otherwise
@@ -153,8 +154,4 @@ const SERVICES = [
     color: var(--gray-950);
   }
 
-  @media (max-width: 860px) {
-    .hero__row { grid-template-columns: 1fr; }
-    .hero__title { font-size: var(--display-2); }
-  }
 </style>

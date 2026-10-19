@@ -23,9 +23,8 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     <section class="section section--tight">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Projects</span>
-          <h1>Cars that came through</h1>
-          <p class="lead">A collection of some of the projects we've worked on.</p>
+          <h1>Projects</h1>
+          <p class="lead">A collection of some of the projects I've worked on.</p>
         </div>
 
         {projects.length === 0 ? (

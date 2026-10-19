@@ -8,15 +8,14 @@ const EMAIL = 'ryan@ryfabmotorsports.com';
 // See README.md "Contact form".
 const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/xeaqrepr';
 ---
-<BaseLayout title="Contact" description="Get in touch with RyFab Motorsports — tell us about your car and what you need.">
+<BaseLayout title="Contact" description="Get in touch with RyFab Motorsports — tell me about your car and what you need.">
   <main>
     <section class="section section--tight">
-      <div class="container contact-grid">
+      <div class="container">
         <div class="contact-form-col">
           <div class="section-head">
-            <span class="eyebrow">Contact</span>
-            <h1>How can we help?</h1>
-            <p class="lead">Tell us about your car and what you're trying to get done. We'll reply as soon as we can.</p>
+            <h1>Contact</h1>
+            <p class="lead">Tell me about your car and what you're trying to get done. Fill out the form, or email me directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. I'll reply as soon as I can.</p>
           </div>
 
           <form id="contact-form" method="POST" action={FORMSPREE_ENDPOINT} class="contact-form">
@@ -35,32 +34,16 @@ const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT || 'https://formsp
 
             <div class="field">
               <label for="c-notes">What do you need help with?</label>
-              <textarea class="input" id="c-notes" name="notes" rows="5" placeholder="Tell us about your car and what you need"></textarea>
+              <textarea class="input" id="c-notes" name="notes" rows="5" placeholder="Tell me about your car and what you need"></textarea>
             </div>
 
             <p class="contact-form__error" hidden>
-              Something went wrong sending that. Try again, or email us directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+              Something went wrong sending that. Try again, or email me directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
             </p>
 
             <div class="contact-submit">
-              <button type="submit" class="btn btn--primary btn--lg">Submit</button>
-              <span class="contact-submit__note">We reply as soon as we can.</span>
-            </div>
+              <button type="submit" class="btn btn--primary btn--lg">Submit</button>            </div>
           </form>
-        </div>
-
-        <div class="contact-side">
-          <div class="card">
-            <div class="card__body">
-              <span class="card__eyebrow">Prefer email?</span>
-              <h2 class="card__title">Reach us directly</h2>
-              <a href={`mailto:${EMAIL}`} class="mono contact-email">{EMAIL}</a>
-            </div>
-          </div>
-
-          <div class="placeholder placeholder--16-10">
-            <span>Shop photo</span>
-          </div>
         </div>
       </div>
     </section>
@@ -101,13 +84,7 @@ const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT || 'https://formsp
 </BaseLayout>
 
 <style>
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: var(--space-12);
-    align-items: start;
-  }
-  .contact-form-col { display: flex; flex-direction: column; gap: var(--space-6); }
+  .contact-form-col { display: flex; flex-direction: column; gap: var(--space-6); max-width: 720px; }
   .contact-form {
     display: flex;
     flex-direction: column;
@@ -126,18 +103,5 @@ const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT || 'https://formsp
   .contact-form__error a { color: inherit; text-decoration: underline; }
 
   .contact-submit { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
-  .contact-submit__note { font-family: var(--font-text); font-size: var(--text-sm); color: var(--text-muted); }
-
-  .contact-side { display: flex; flex-direction: column; gap: var(--space-4); }
-  .contact-email {
-    display: inline-block;
-    margin-top: var(--space-2);
-    font-size: var(--mono-size);
-    color: var(--text-primary);
-  }
-  .contact-email:hover { color: var(--text-link-hover); }
-
-  @media (max-width: 860px) {
-    .contact-grid { grid-template-columns: 1fr; }
-  }
+  .section-head .lead a { color: var(--text-primary); text-decoration: underline; }
 </style>

@@ -36,9 +36,9 @@ This car was sold by a local friend to a new owner that plans to run it in GridL
 
 The wing mounts are in-house designed specifically for the RX8. They bolt directly to the trunk and have large backing plates underneath to prevent the trunk from flexing. The airfoil is a WingLogic MSHD element.
 
-The splitter is designed to maximize the 3" allowance for GLTC rules. It is mounted to the car with our quick release splitter mounts. The mounts bolt directly to the RX8 (and NC) chassis using factory holes.
+The splitter is designed to maximize the 3" allowance for GLTC rules. It is mounted to the car with my quick release splitter mounts. The mounts bolt directly to the RX8 (and NC) chassis using factory holes.
 
-While here, we also installed a IO Port window next, fire suppression system, and an OS Giken differential.
+While here, I also installed a IO Port window net, fire suppression system, and an OS Giken differential.
 
 ## The build
 

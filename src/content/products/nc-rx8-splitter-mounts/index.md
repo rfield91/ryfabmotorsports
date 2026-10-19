@@ -35,5 +35,5 @@ These splitter mounts bolt directly to existing holes on both the NC and RX8 cha
 
 ## What you need
 
-- Splitter blade - choose your favorite flavor of material. Our preference is 1/2" plywood.
+- Splitter blade - choose your favorite flavor of material. My preference is 1/2" plywood.
 - Your own system of secondary supports, or select the option to include cables and subframe bracket
